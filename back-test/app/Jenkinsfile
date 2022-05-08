@@ -25,7 +25,7 @@ pipeline {
                         remote.allowAnyHosts = true
                         sshCommand remote: remote, command: 'git clone https://github.com/bankjirayuth/bank-ec2-test-api.git'
                         sshCommand remote: remote, command: 'docker-compose -f bank-ec2-test-api/Docker-compose.yml up -d'
-                        sshCommand remote: remote, command: 'rm -r bank-ec2-test-api'
+                        sshCommand remote: remote, command: 'rm -r bank-ec2-test-api.git'
                     }
                 }
             }
