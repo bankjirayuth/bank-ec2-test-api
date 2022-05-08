@@ -18,7 +18,7 @@ pipeline {
                 withCredentials([string(credentialsId: 'hostip', variable: 'ip'), string(credentialsId: 'username', variable: 'username'), string(credentialsId: 'password', variable: 'password')]) {
                     script {
                         def remote = [:]
-                        remote.name = 'T09'
+                        remote.name = 'Practice-remote'
                         remote.host = "${ip}"
                         remote.user = "${username}"
                         remote.password = "${password}"
