@@ -5,6 +5,7 @@ services:
     build: ./front-end
     ports:
       - "3035:80"
+      
   back-end:
     image: bankjirayuth/devtool-compose-back:1.0.0
     build: ./back-test/app
