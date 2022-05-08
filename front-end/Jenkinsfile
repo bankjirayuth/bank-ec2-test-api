@@ -1,19 +1,34 @@
 pipeline {
     agent any
-stages {
-  
-   stage('Pull code') {
-       steps {
-           checkout scm
-       }
+    stages {
+        stage('Pull code') {
+            steps {
+                checkout scm
+            }
+        }
+        stage('Download dependency') {
+            steps {
+                dir('front-end') {
+                    echo 'Downloaded dependency front-end'
+                }
+            }
+        }
+        stage('Deployment') {
+            steps {
+                withCredentials([string(credentialsId: 'hostip', variable: 'ip'), string(credentialsId: 'username', variable: 'username'), string(credentialsId: 'password', variable: 'password')]) {
+                    script {
+                        def remote = [:]
+                        remote.name = 'T09'
+                        remote.host = "${ip}"
+                        remote.user = "${username}"
+                        remote.password = "${password}"
+                        remote.allowAnyHosts = true
+                        sshCommand remote: remote, command: 'git clone https://github.com/bankjirayuth/bank-ec2-test-api.git'
+                        sshCommand remote: remote, command: 'docker-compose -f bank-ec2-test-api/Docker-compose.yml up -d'
+                        sshCommand remote: remote, command: 'rm -r DEVELOPMENT-TOOLS-GET-A-PLUS'
+                    }
+                }
+            }
+        }
     }
-    stage('Download dependency') {
-       steps {
-           dir('front-end') {
-              echo "Downloaded dependency front-end"
-           }
-       }
-   }
-  
-  }
 }
