@@ -4,9 +4,9 @@ services:
     image: bankjirayuth/devtool-compose-front:1.0.0
     build: ./front-end
     ports:
-      - "3000:80"
+      - "3035:80"
   back-end:
     image: bankjirayuth/devtool-compose-back:1.0.0
     build: ./back-test/app
     ports:
-      - "4000:3000"
+      - "4035:3000"
